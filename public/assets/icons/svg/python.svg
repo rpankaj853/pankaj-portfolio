@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <circle cx="40" cy="40" r="36" fill="url(#bg)" stroke="url(#ring)" stroke-width="1.5"/>
+  <!-- Python snake shape - two interlocked P shapes -->
+  <path d="M40 18 C30 18 24 23 24 30 L24 36 L40 36 L40 38 L20 38 L20 50 C20 57 26 62 36 62 L40 62 L40 56 L36 56 C32 56 28 53 28 50 L28 44 L52 44 L52 30 C52 23 46 18 40 18 Z" fill="url(#g1)" filter="url(#glow)"/>
+  <path d="M40 62 C50 62 56 57 56 50 L56 44 L40 44 L40 42 L60 42 L60 30 C60 23 54 18 44 18 L40 18 L40 24 L44 24 C48 24 52 27 52 30 L52 36 L28 36 L28 50 C28 57 34 62 40 62 Z" fill="url(#g2)" filter="url(#glow)"/>
+  <!-- Dots -->
+  <circle cx="34" cy="27" r="2.5" fill="#0d0d1a"/>
+  <circle cx="46" cy="53" r="2.5" fill="#0d0d1a"/>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a1040"/><stop offset="100%" stop-color="#0d0d1a"/></radialGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c3aed" stop-opacity="0.8"/><stop offset="100%" stop-color="#a78bfa" stop-opacity="0.3"/></linearGradient>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
+    <linearGradient id="g2" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#c4b5fd"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+</svg>
