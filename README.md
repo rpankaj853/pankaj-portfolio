@@ -2,7 +2,7 @@
 
 A modern, responsive personal portfolio website built with React, Tailwind CSS, and Framer Motion. Features a dark purple theme with smooth animations throughout.
 
-**Live:** [pankaj-portfolio](https://github.com/rpankaj853/pankaj-portfolio)
+**Live:** [pankajrana.live](https://pankajrana.live)
 
 ---
 
@@ -13,6 +13,7 @@ A modern, responsive personal portfolio website built with React, Tailwind CSS, 
 - **Framer Motion** — page animations and scroll-triggered transitions
 - **React Scroll** — smooth in-page navigation
 - **React Icons** — icon library
+- **EmailJS** — contact form email delivery (no backend required)
 
 ---
 
@@ -26,7 +27,7 @@ A modern, responsive personal portfolio website built with React, Tailwind CSS, 
 | **Projects** | 15 projects with gallery carousel modal and "View All" overlay |
 | **Experience** | Scrollable timeline with animated glow dots |
 | **Certificates** | Auto-playing marquee carousel with full-screen modal |
-| **Contact** | Social links, email, location, and resume download |
+| **Contact** | Contact form, social links, location, and resume download |
 
 ---
 
@@ -44,6 +45,20 @@ npm run build
 ```
 
 Dev server runs at `http://localhost:5173`
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the root with your EmailJS credentials:
+
+```env
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+Get these from [emailjs.com](https://emailjs.com) → Email Services / Email Templates / Account.
 
 ---
 
@@ -78,11 +93,11 @@ All content lives in `src/data/portfolio.js` — update skills, projects, experi
 Custom theme tokens are in `tailwind.config.js`:
 
 ```js
-bg: '#05050f'          // page background
-bg-card: '#0d0d1a'     // card background
-accent: '#7c3aed'      // primary purple
+bg: '#05050f'           // page background
+bg-card: '#0d0d1a'      // card background
+accent: '#7c3aed'       // primary purple
 accent-light: '#a78bfa' // lighter purple
-border: '#1e1b4b'      // subtle border
+border: '#1e1b4b'       // subtle border
 ```
 
 ---
@@ -92,3 +107,4 @@ border: '#1e1b4b'      // subtle border
 - **Email:** prfounder43@gmail.com
 - **LinkedIn:** [pankaj-rana](https://www.linkedin.com/in/pankaj-rana-a09276141/)
 - **GitHub:** [rpankaj853](https://github.com/rpankaj853)
+- **Website:** [pankajrana.live](https://pankajrana.live)

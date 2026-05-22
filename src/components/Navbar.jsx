@@ -1,41 +1,39 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-scroll'
-import { motion, AnimatePresence } from 'framer-motion'
-import { HiMenuAlt3, HiX } from 'react-icons/hi'
-import { NAV_LINKS } from '../data/portfolio'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-scroll";
+import { motion, AnimatePresence } from "framer-motion";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { NAV_LINKS } from "../data/portfolio";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-bg/80 backdrop-blur-xl border-b border-border shadow-lg shadow-black/30'
-          : 'bg-transparent'
+          ? "bg-bg/80 backdrop-blur-xl border-b border-border shadow-lg shadow-black/30"
+          : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 cursor-pointer"
-          >
-            <span className="text-accent font-bold text-xl">&lt;/&gt;</span>
-            <span className="font-bold text-white text-lg">
-              Pankaj <span className="text-gradient">Rana</span>
-            </span>
+          <motion.div whileHover={{ scale: 1.05 }} className="cursor-pointer">
+            <img
+              src="/assets/images/prlogo.png"
+              alt="PRFounder"
+              className="h-10 w-14 rounded-xl object-cover border border-accent/30"
+            />
           </motion.div>
 
           {/* Desktop Nav Links */}
@@ -85,7 +83,7 @@ export default function Navbar() {
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             className="md:hidden bg-bg-card border-b border-border overflow-hidden"
@@ -117,5 +115,5 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </motion.nav>
-  )
+  );
 }
