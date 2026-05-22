@@ -1,9 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import emailjs from '@emailjs/browser'
 import {
   FiGithub, FiLinkedin, FiMail, FiMapPin,
-  FiDownload, FiArrowUpRight, FiCode, FiSend, FiCheckCircle, FiAlertCircle
+  FiDownload, FiArrowUpRight, FiCode
 } from 'react-icons/fi'
 import { Link } from 'react-scroll'
 import { CONTACT_INFO, NAV_LINKS, SOCIAL_LINKS } from '../data/portfolio'
@@ -53,50 +52,7 @@ const fadeUp = (delay = 0) => ({
 
 export default function Contact() {
   const sectionRef = useRef(null)
-  const formRef = useRef(null)
   const inView = useInView(sectionRef, { once: true, margin: '-80px' })
-  const [status, setStatus] = useState('idle')
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
-  const [errors, setErrors] = useState({})
-
-  const validate = () => {
-    const e = {}
-    if (!form.name.trim()) e.name = 'Name is required'
-    else if (form.name.trim().length < 2) e.name = 'Name must be at least 2 characters'
-    if (!form.email.trim()) e.email = 'Email is required'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) e.email = 'Enter a valid email address'
-    if (!form.subject.trim()) e.subject = 'Subject is required'
-    else if (form.subject.trim().length < 3) e.subject = 'Subject must be at least 3 characters'
-    if (!form.message.trim()) e.message = 'Message is required'
-    else if (form.message.trim().length < 10) e.message = 'Message must be at least 10 characters'
-    return e
-  }
-
-  const handleChange = e => {
-    const { name, value } = e.target
-    setForm({ ...form, [name]: value })
-    if (errors[name]) setErrors({ ...errors, [name]: '' })
-  }
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    const errs = validate()
-    if (Object.keys(errs).length > 0) { setErrors(errs); return }
-    setStatus('sending')
-    try {
-      await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      )
-      setStatus('success')
-      setForm({ name: '', email: '', subject: '', message: '' })
-      setErrors({})
-    } catch {
-      setStatus('error')
-    }
-  }
 
   return (
     <>
@@ -171,78 +127,9 @@ export default function Contact() {
             ))}
           </div>
 
-          {/* Contact Form */}
-          <motion.form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            variants={fadeUp(0.5)}
-            initial="hidden"
-            animate={inView ? 'show' : 'hidden'}
-            className="rounded-2xl border border-border bg-bg-card p-6 sm:p-8 mb-10"
-          >
-            <h3 className="text-white font-semibold text-lg mb-6">Send a Message</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="text-xs text-muted font-medium block mb-1.5">Your Name</label>
-                <input
-                  type="text" name="name" value={form.name} onChange={handleChange}
-                  placeholder="Pankaj Rana"
-                  className={`w-full bg-bg border rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:ring-1 transition-all ${errors.name ? 'border-red-500/60 focus:ring-red-500/20' : 'border-border focus:border-accent/60 focus:ring-accent/30'}`}
-                />
-                {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
-              </div>
-              <div>
-                <label className="text-xs text-muted font-medium block mb-1.5">Your Email</label>
-                <input
-                  type="text" name="email" value={form.email} onChange={handleChange}
-                  placeholder="you@example.com"
-                  className={`w-full bg-bg border rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:ring-1 transition-all ${errors.email ? 'border-red-500/60 focus:ring-red-500/20' : 'border-border focus:border-accent/60 focus:ring-accent/30'}`}
-                />
-                {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
-              </div>
-            </div>
-            <div className="mb-4">
-              <label className="text-xs text-muted font-medium block mb-1.5">Subject</label>
-              <input
-                type="text" name="subject" value={form.subject} onChange={handleChange}
-                placeholder="Project collaboration / Opportunity"
-                className={`w-full bg-bg border rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:ring-1 transition-all ${errors.subject ? 'border-red-500/60 focus:ring-red-500/20' : 'border-border focus:border-accent/60 focus:ring-accent/30'}`}
-              />
-              {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
-            </div>
-            <div className="mb-6">
-              <label className="text-xs text-muted font-medium block mb-1.5">Message</label>
-              <textarea
-                name="message" rows={5} value={form.message} onChange={handleChange}
-                placeholder="Tell me about your project or idea..."
-                className={`w-full bg-bg border rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:ring-1 transition-all resize-none ${errors.message ? 'border-red-500/60 focus:ring-red-500/20' : 'border-border focus:border-accent/60 focus:ring-accent/30'}`}
-              />
-              {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
-            </div>
-            {status === 'success' && (
-              <div className="flex items-center gap-2 text-green-400 text-sm mb-4">
-                <FiCheckCircle size={16} /> Message sent! I'll get back to you soon.
-              </div>
-            )}
-            {status === 'error' && (
-              <div className="flex items-center gap-2 text-red-400 text-sm mb-4">
-                <FiAlertCircle size={16} /> Something went wrong. Please try again or email me directly.
-              </div>
-            )}
-            <motion.button
-              type="submit"
-              disabled={status === 'sending'}
-              whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 px-7 py-3 bg-accent hover:bg-accent/90 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all shadow-lg shadow-accent/30 text-sm"
-            >
-              <FiSend size={16} />
-              {status === 'sending' ? 'Sending...' : 'Send Message'}
-            </motion.button>
-          </motion.form>
-
           {/* Resume download CTA */}
           <motion.div
-            variants={fadeUp(0.65)}
+            variants={fadeUp(0.55)}
             initial="hidden"
             animate={inView ? 'show' : 'hidden'}
             className="flex justify-center"
