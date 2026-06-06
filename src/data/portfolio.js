@@ -33,6 +33,7 @@ export const ABOUT_STATS = [
 export const SKILLS = [
   { name: 'FastAPI',      category: 'Frameworks',       logo: '/assets/icons/svg/fastapi.svg' },
   { name: 'LangChain',    category: 'AI/ML',            logo: '/assets/icons/svg/langchain.svg' },
+  { name: 'LangGraph',    category: 'AI/ML',            logo: '/assets/icons/svg/langgraph.svg' },
   { name: 'Hugging Face', category: 'AI/ML',            logo: '/assets/icons/svg/huggingface.svg' },
   { name: 'Django',       category: 'Frameworks',       logo: '/assets/icons/svg/django.svg' },
   { name: 'Python',       category: 'Languages',        logo: '/assets/icons/svg/python.svg' },
