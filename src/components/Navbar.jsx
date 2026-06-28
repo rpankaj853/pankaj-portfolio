@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
-import { Link as NavLink } from "react-router-dom";
+import { Link as NavLink, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { MdGamepad } from "react-icons/md";
@@ -9,12 +9,26 @@ import { NAV_LINKS } from "../data/portfolio";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const handleNavClick = (sectionId) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <motion.nav
@@ -30,30 +44,29 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.div whileHover={{ scale: 1.05 }} className="cursor-pointer">
+          <motion.button
+            onClick={() => navigate("/")}
+            whileHover={{ scale: 1.05 }}
+            className="cursor-pointer"
+          >
             <img
               src="/assets/images/prlogo.png"
               alt="PRFounder"
               className="h-10 w-14 rounded-xl object-cover border border-accent/30"
             />
-          </motion.div>
+          </motion.button>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-1">
             {NAV_LINKS.map((link) => (
-              <Link
+              <button
                 key={link.to}
-                to={link.to}
-                spy={true}
-                smooth={true}
-                offset={-64}
-                duration={500}
-                activeClass="active-nav"
+                onClick={() => handleNavClick(link.to)}
                 className="relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white cursor-pointer transition-colors duration-200 group"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-200 rounded-full" />
-              </Link>
+              </button>
             ))}
           </div>
 
@@ -104,18 +117,16 @@ export default function Navbar() {
           >
             <div className="px-4 py-4 flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
-                <Link
+                <button
                   key={link.to}
-                  to={link.to}
-                  spy={true}
-                  smooth={true}
-                  offset={-64}
-                  duration={500}
-                  onClick={() => setMenuOpen(false)}
-                  className="block px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-accent/10 rounded-lg cursor-pointer transition-all duration-200"
+                  onClick={() => {
+                    handleNavClick(link.to);
+                    setMenuOpen(false);
+                  }}
+                  className="block px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-accent/10 rounded-lg cursor-pointer transition-all duration-200 text-left"
                 >
                   {link.label}
-                </Link>
+                </button>
               ))}
               <NavLink
                 to="/nodetrail"
