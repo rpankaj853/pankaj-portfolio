@@ -27,6 +27,11 @@ export default function Navbar() {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   };
 
