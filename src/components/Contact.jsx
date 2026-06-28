@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { Link as NavLink } from 'react-router-dom'
 import {
   FiGithub, FiLinkedin, FiMail, FiMapPin,
   FiDownload, FiArrowUpRight, FiCode
@@ -208,14 +209,23 @@ export default function Contact() {
           </div>
 
           {/* Divider */}
-          <div className="border-t border-border/50 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="border-t border-border/50 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-slate-600 text-xs">
               © {new Date().getFullYear()} Pankaj Rana. All rights reserved.
             </p>
-            <p className="text-slate-600 text-xs flex items-center gap-1">
-              Built with React & Tailwind CSS
-              <span className="text-accent">♥</span>
-            </p>
+            <div className="flex items-center gap-3">
+              <p className="text-slate-600 text-xs flex items-center gap-1">
+                Built with React & Tailwind CSS
+                <span className="text-accent">♥</span>
+              </p>
+              <span className="text-slate-500">•</span>
+              <NavLink
+                to="/nodetrail"
+                className="text-slate-600 hover:text-accent text-xs transition-colors duration-200"
+              >
+                NodeTrail Privacy
+              </NavLink>
+            </div>
           </div>
         </div>
       </footer>

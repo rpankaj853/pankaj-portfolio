@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
+import { Link as NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { MdGamepad } from "react-icons/md";
 import { NAV_LINKS } from "../data/portfolio";
 
 export default function Navbar() {
@@ -55,8 +57,20 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Download Resume Button */}
-          <div className="hidden md:block">
+          {/* NodeTrail & Resume Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <NavLink
+                to="/nodetrail"
+                className="flex items-center gap-2 px-4 py-2 border border-accent/50 hover:border-accent hover:bg-accent/10 text-accent hover:text-accent-light text-sm font-semibold rounded-lg transition-all duration-200"
+              >
+                <MdGamepad size={16} />
+                NodeTrail
+              </NavLink>
+            </motion.div>
             <motion.a
               href="/assets/resume.pdf"
               download
@@ -103,6 +117,14 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <NavLink
+                to="/nodetrail"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-accent hover:text-accent-light hover:bg-accent/10 rounded-lg transition-all duration-200"
+              >
+                <MdGamepad size={16} />
+                NodeTrail
+              </NavLink>
               <a
                 href="/assets/resume.pdf"
                 download
